@@ -385,11 +385,18 @@ reswitch:
 		break;
 	
 	case OTARRAY:
+
+		dump("typechecking:", n);
+
 		ok |= Etype;
 		t = typ(TARRAY);
 		l = n->left;
 		r = n->right;
 		if(l == nil) {
+
+			print("som slajca");
+
+
 			t->bound = -1;	// slice
 		} else if(l->op == ODDD) {
 			t->bound = -100;	// to be filled in
@@ -409,6 +416,11 @@ reswitch:
 				v = toint(l->val);
 				break;
 			default:
+				print("nazdar");
+
+				if (l == NULL)
+					break;
+
 				if(l->type != T && isint[l->type->etype] && l->op != OLITERAL)
 					yyerror("non-constant array bound %N", l);
 				else
@@ -424,8 +436,10 @@ reswitch:
 				goto error;
 			}
 		}
+		print("typecheck(&r, Etype);");
+
 		typecheck(&r, Etype);
-		if(r->type == T)
+		if(r != NULL && r->type == T)
 			goto error;
 		t->type = r->type;
 		n->op = OTYPE;
@@ -2747,10 +2761,13 @@ typecheckcomplit(Node **np)
 		n->left->type = t;
 		n->left->typecheck = 1;
 	}
-
+	print("\nAAA\n\n");
 	n->orig = norig;
+	print("\nAAABB\n\n");
 	*np = n;
+	print("\nAAACCC\n\n");
 	lineno = lno;
+	print("\nAAAFDDD\n\n");
 	return;
 
 error:
