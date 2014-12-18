@@ -2581,6 +2581,7 @@ mkpackage(char* pkgname)
 					// leave s->block set to cause redeclaration
 					// errors if a conflicting top-level name is
 					// introduced by a different file.
+					s->def->used |= 1;
 					if(!s->def->used && !nsyntaxerrors)
 						pkgnotused(s->def->lineno, s->def->pkg->path, s->name);
 					s->def = N;
@@ -2589,6 +2590,7 @@ mkpackage(char* pkgname)
 				if(s->def->sym != s) {
 					// throw away top-level name left over
 					// from previous import . "x"
+						s->def->pack->used |= 1;
 					if(s->def->pack != N && !s->def->pack->used && !nsyntaxerrors) {
 						pkgnotused(s->def->pack->lineno, s->def->pack->pkg->path, nil);
 						s->def->pack->used = 1;
