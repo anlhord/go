@@ -441,7 +441,11 @@ reswitch:
 		typecheck(&r, Etype);
 		if(r != NULL && r->type == T)
 			goto error;
-		t->type = r->type;
+		
+		if(r != NULL)
+			t->type = r->type;
+		else
+			t->type = NULL;
 		n->op = OTYPE;
 		n->type = t;
 		n->left = N;
@@ -2761,13 +2765,9 @@ typecheckcomplit(Node **np)
 		n->left->type = t;
 		n->left->typecheck = 1;
 	}
-	print("\nAAA\n\n");
 	n->orig = norig;
-	print("\nAAABB\n\n");
 	*np = n;
-	print("\nAAACCC\n\n");
 	lineno = lno;
-	print("\nAAAFDDD\n\n");
 	return;
 
 error:
