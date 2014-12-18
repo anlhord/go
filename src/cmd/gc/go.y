@@ -1248,7 +1248,7 @@ othertype:
 	{
 		$$ = nod(OTARRAY, $2, $4);
 	}
-|	'[' LDDD ']' ontype
+|	'[' LDDD ']' ntype
 	{
 		// array literal of nelem
 		$$ = nod(OTARRAY, nod(ODDD, N, N), $4);
