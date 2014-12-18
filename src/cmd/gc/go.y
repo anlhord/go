@@ -51,7 +51,7 @@ static void fixlbrace(int);
 %type	<sym>	sym packname
 %type	<val>	oliteral
 
-%type	<node>	stmt ntype
+%type	<node>	stmt ntype ontype
 %type	<node>	arg_type
 %type	<node>	case caseblock
 %type	<node>	compound_stmt dotname embed expr complitexpr bare_complitexpr
@@ -1179,6 +1179,12 @@ dotdotdot:
 		$$ = nod(ODDD, $2, N);
 	}
 
+ontype:
+	ntype
+|	{
+		$$ = nil;
+	}
+
 ntype:
 	recvchantype
 |	fntype
@@ -1238,11 +1244,11 @@ dotname:
 	}
 
 othertype:
-	'[' oexpr ']' ntype
+	'[' oexpr ']' ontype
 	{
 		$$ = nod(OTARRAY, $2, $4);
 	}
-|	'[' LDDD ']' ntype
+|	'[' LDDD ']' ontype
 	{
 		// array literal of nelem
 		$$ = nod(OTARRAY, nod(ODDD, N, N), $4);
