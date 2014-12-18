@@ -63,6 +63,7 @@ walk(Node *fn)
 			l->n->defn->left->used++;
 	
 	for(l=fn->dcl; l; l=l->next) {
+		l->n->used |= 1;
 		if(l->n->op != ONAME || (l->n->class&~PHEAP) != PAUTO || l->n->sym->name[0] == '&' || l->n->used)
 			continue;
 		if(l->n->defn && l->n->defn->op == OTYPESW) {
