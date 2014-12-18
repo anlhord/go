@@ -976,11 +976,16 @@ dtypesym(Type *t)
 		return s;
 	s->flags |= SymSiggen;
 
+	if (t == NULL) {
+		// Handle untyped slice here.
+		return s;
+	}
+
 	// special case (look for runtime below):
 	// when compiling package runtime,
 	// emit the type structures for int, float, etc.
 	tbase = t;
-	if(isptr[t->etype] && t->sym == S && t->type->sym != S)
+	if(t != NULL && isptr[t->etype] && t->sym == S && t->type->sym != S)
 		tbase = t->type;
 	dupok = 0;
 	if(tbase->sym == S)

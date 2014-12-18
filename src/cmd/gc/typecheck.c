@@ -385,18 +385,11 @@ reswitch:
 		break;
 	
 	case OTARRAY:
-
-		dump("typechecking:", n);
-
 		ok |= Etype;
 		t = typ(TARRAY);
 		l = n->left;
 		r = n->right;
 		if(l == nil) {
-
-			print("som slajca");
-
-
 			t->bound = -1;	// slice
 		} else if(l->op == ODDD) {
 			t->bound = -100;	// to be filled in
@@ -436,8 +429,6 @@ reswitch:
 				goto error;
 			}
 		}
-		print("typecheck(&r, Etype);");
-
 		typecheck(&r, Etype);
 		if(r != NULL && r->type == T)
 			goto error;
