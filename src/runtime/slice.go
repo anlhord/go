@@ -109,12 +109,7 @@ func slicecopy(to sliceStruct, fm sliceStruct, width uintptr) int {
 	}
 
 	size := uintptr(n) * width
-	if size == 1 { // common case worth about 2x to do here
-		// TODO: is this still worth it with new memmove impl?
-		*(*byte)(to.array) = *(*byte)(fm.array) // known to be a byte pointer
-	} else {
-		memmove(to.array, fm.array, size)
-	}
+	memmove(to.array, fm.array, size)
 	return int(n)
 }
 
