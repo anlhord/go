@@ -468,7 +468,8 @@ allocauto(Prog* ptxt)
 		if(w >= MAXWIDTH || w < 0)
 			fatal("bad width");
 		stksize += w;
-		stksize = rnd(stksize, n->type->align);
+		if (n->type->align > 0)
+			stksize = rnd(stksize, n->type->align);
 		if(haspointers(n->type))
 			stkptrsize = stksize;
 		if(thechar == '5' || thechar == '9')
