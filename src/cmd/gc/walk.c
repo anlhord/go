@@ -412,6 +412,8 @@ walkexpr(Node **np, NodeList **init)
 		return;
 	}
 
+//	int qq =0,zz = 0;
+
 	lno = setlineno(n);
 
 	if(debug['w'] > 1)
@@ -423,9 +425,13 @@ walkexpr(Node **np, NodeList **init)
 	switch(n->op) {
 	default:
 		dump("walk", n);
+
+//		qq /= zz;
+
 		fatal("walkexpr: switch 1 unknown op %+hN", n);
 		break;
-
+	case OCALL:
+		goto ret;
 	case OTYPE:
 	case ONONAME:
 	case OINDREG:
@@ -1682,6 +1688,10 @@ ascompatte(int op, Node *call, int isddd, Type **nl, NodeList *lr, int fp, NodeL
 		r = lr->n;
 	nn = nil;
 
+	if (r != N && lr->next == nil && r->type != 0) {
+
+
+
 	// f(g()) where g has multiple return values
 	if(r != N && lr->next == nil && r->type->etype == TSTRUCT && r->type->funarg) {
 		// optimization - can do block copy
@@ -1710,7 +1720,7 @@ ascompatte(int op, Node *call, int isddd, Type **nl, NodeList *lr, int fp, NodeL
 		r = lr->n;
 		l = structfirst(&savel, nl);
 	}
-
+	}
 loop:
 	if(l != T && l->isddd) {
 		// the ddd parameter must be last

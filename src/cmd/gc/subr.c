@@ -1405,6 +1405,10 @@ assignconv(Node *n, Type *t, char *context)
 	if(n == N || n->type == T || n->type->broke)
 		return n;
 
+	if (t == NULL)
+		yyerror("converting to nil type");
+
+
 	if(t->etype == TBLANK && n->type->etype == TNIL)
 		yyerror("use of untyped nil");
 
