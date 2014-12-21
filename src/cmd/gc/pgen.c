@@ -264,6 +264,9 @@ compile(Node *fn)
 		case PAUTO:
 		case PPARAM:
 		case PPARAMOUT:
+			if (l->n->type == NULL) {
+				continue;
+			}
 			nodconst(&nod1, types[TUINTPTR], l->n->type->width);
 			p = gins(ATYPE, l->n, &nod1);
 			p->from.gotype = linksym(ngotype(l->n));
@@ -406,6 +409,11 @@ cmpstackvar(Node *a, Node *b)
 	bp = b->needzero;
 	if(ap != bp)
 		return bp - ap;
+
+	if (a->type == NULL)
+		return -1;
+	if (b->type == NULL)
+		return +1;
 
 	if(a->type->width < b->type->width)
 		return +1;
