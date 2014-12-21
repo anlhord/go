@@ -240,6 +240,9 @@ fatal(char *fmt, ...)
 
 	flusherrors();
 
+	int qq = 0;
+	qq /= qq;
+
 	print("%L: internal compiler error: ", lineno);
 	va_start(arg, fmt);
 	vfprint(1, fmt, arg);
