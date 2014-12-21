@@ -109,12 +109,12 @@ static void fixlbrace(int);
  * and annotate the reducing rule accordingly.
  */
 %left		NotPackage
-%left		LPACKAGE
+//%left		LPACKAGE
 
-%left		NotParen
-%left		'('
+%precedence		NotParen
+%precedence		'('
 
-%left		')'
+//%left		')'
 %left		PreferToRightParen
 
 %error-verbose
