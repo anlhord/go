@@ -954,7 +954,7 @@ tempname(Node *nn, Type *t)
 		fatal("no curfn for tempname");
 
 	if(t == T) {
-		yyerror("tempname called with nil type");
+//		yyerror("tempname called with nil type");
 		t = types[TINT32];
 	}
 

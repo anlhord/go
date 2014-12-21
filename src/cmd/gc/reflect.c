@@ -649,6 +649,11 @@ haspointers(Type *t)
 	Type *t1;
 	int ret;
 
+	if (t == 0) {
+		return 0;
+	}
+		
+
 	if(t->haspointers != 0)
 		return t->haspointers - 1;
 
