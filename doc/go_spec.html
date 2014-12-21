@@ -896,6 +896,36 @@ multi-dimensional types.
 [2][2][2]float64  // same as [2]([2]([2]float64))
 </pre>
 
+<h3 id="Autoslice_type">Autoslice types</h3>
+
+<pre class="ebnf">
+AutosliceType = "[" "]" .
+</pre>
+
+<p>An Autoslice is (usually opaque) descriptor for a contiguous segment of an underlying array.</p>
+
+<p>Autoslice type is attempted to be inferred to a normal slice type during compile time.
+(checks if distinct run time types for the same variable are not possible).
+</p>
+<h4>When the inference succeeds:</h4>
+<p>it's not opaque and behaves
+exactly like a slice of the correct actual type (see below).</p>
+
+<h4>When the inference fails:</h4>
+
+<p>foo := as[bar] // foo is an interface{} or its to subslicing and foo[0] </p>
+
+<ul>
+<li>multidimensional Autoslice is not possible</li>
+<li>can't be used in receiver or in argument to recievered function</li>
+<li>subslicing produces another Autoslice of the same run time type.
+<li>len produces len
+<li>cap produces cap
+
+<li>append produces another Autoslice of the same run time type.
+<li>copy works.
+
+</ul>
 <h3 id="Slice_types">Slice types</h3>
 
 <p>
