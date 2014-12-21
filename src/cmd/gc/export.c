@@ -182,6 +182,9 @@ reexportdep(Node *n)
 	case OMAKESLICE:
 	case OMAKECHAN:
 		t = n->type;
+		if (!t)
+			break;
+
 		if(!t->sym && t->type)
 			t = t->type;
 		if(t && t->sym && t->sym->def && !exportedsym(t->sym)) {
