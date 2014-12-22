@@ -51,7 +51,7 @@ static void fixlbrace(int);
 %type	<sym>	sym packname
 %type	<val>	oliteral
 
-%type	<node>	stmt ntype
+%type	<node>	stmt ntype ontype
 %type	<node>	arg_type
 %type	<node>	case caseblock
 %type	<node>	compound_stmt dotname embed expr complitexpr bare_complitexpr
@@ -108,6 +108,9 @@ static void fixlbrace(int);
  * NotToken with lower precedence or PreferToToken with higher
  * and annotate the reducing rule accordingly.
  */
+
+%left		NotTypedSlice
+
 %left		NotPackage
 %left		LPACKAGE
 
@@ -1179,6 +1182,13 @@ dotdotdot:
 		$$ = nod(ODDD, $2, N);
 	}
 
+ontype:
+	%prec NotTypedSlice
+	{
+		$$ = N;
+	}
+|	ntype
+
 ntype:
 	recvchantype
 |	fntype
@@ -1238,7 +1248,7 @@ dotname:
 	}
 
 othertype:
-	'[' oexpr ']' ntype
+	'[' oexpr ']' ontype
 	{
 		$$ = nod(OTARRAY, $2, $4);
 	}
