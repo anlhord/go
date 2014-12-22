@@ -47,8 +47,6 @@ static void fixlbrace(int);
 %token		LANDAND LANDNOT LBODY LCOMM LDEC LEQ LGE LGT
 %token		LIGNORE LINC LLE LLSH LLT LNE LOROR LRSH
 
-%token		NotPackage PreferToRightParen
-
 %type	<i>	lbrace import_here
 %type	<sym>	sym packname
 %type	<val>	oliteral
@@ -110,9 +108,16 @@ static void fixlbrace(int);
  * NotToken with lower precedence or PreferToToken with higher
  * and annotate the reducing rule accordingly.
  */
+%left		NotPackage
+%left		LPACKAGE
 
 %left		NotParen
 %left		'('
+
+%left		')'
+%left		PreferToRightParen
+
+%error-verbose
 
 %%
 file:
