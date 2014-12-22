@@ -92,8 +92,8 @@ extern int yydebug;
     LOROR = 302,
     LRSH = 303,
     NotPackage = 304,
-    NotParen = 305,
-    PreferToRightParen = 306
+    PreferToRightParen = 305,
+    NotParen = 306
   };
 #endif
 /* Tokens.  */
@@ -144,8 +144,8 @@ extern int yydebug;
 #define LOROR 302
 #define LRSH 303
 #define NotPackage 304
-#define NotParen 305
-#define PreferToRightParen 306
+#define PreferToRightParen 305
+#define NotParen 306
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
